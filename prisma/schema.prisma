@@ -25,6 +25,46 @@ model DBConnection {
   database String
   port Int
   userId String
+  tables Table[]
+  edges Edge[]
 
   user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+}
+
+model Table {
+  id          String @id @default(cuid())
+  name        String
+  x           Float
+  y           Float
+  height      Float
+  updated_At  DateTime @updatedAt
+  dbId        String
+  columns     Row[]
+
+  db DBConnection @relation(fields: [dbId],references: [id],onDelete: Cascade)
+}
+
+model Row {
+  id String @id @default(cuid())
+  columnName String
+  charLength Int?
+  dataType String
+  isNullable String
+  isPrimaryKey Int
+  isForeignKey Int
+  tableId String
+
+  table Table @relation(fields: [tableId],references: [id],onDelete: Cascade)
+}
+
+model Edge {
+  identifier String @id @default(cuid())
+  id String 
+  source String
+  target String
+  sourceHandle String
+  targetHandle String
+  dbId String
+
+  db DBConnection @relation(fields: [dbId],references: [id],onDelete: Cascade)
 }

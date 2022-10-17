@@ -9,6 +9,10 @@ import { SelectedDBDto } from './dtos/SelectedDBDto';
 @Controller('database')
 export class DatabaseController {
   constructor(private databaseService: DatabaseService) {}
+  @Post('load-erd')
+  loadERD(@Body() selectedDB: SelectedDBDto, @CurrentUser() user: User) {
+    return this.databaseService.loadERD(selectedDB, user);
+  }
   @Post('generate-erd')
   generateERD(@Body() selectedDB: SelectedDBDto, @CurrentUser() user: User) {
     return this.databaseService.generateERD(selectedDB, user);

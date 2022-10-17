@@ -43,7 +43,7 @@ export class ThumbnailGeneratorService {
     return await this.s3.getSignedUrlPromise('getObject', {
       Key: `thumbnails/user${userId}db${dbId}`,
       Bucket: this.config.get('AWS_BUCKET_NAME'),
-      Expires: 60,
+      Expires: 60 * 60 * 3,
     });
   }
 }
