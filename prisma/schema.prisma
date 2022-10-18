@@ -42,6 +42,7 @@ model Table {
   columns     Row[]
 
   db DBConnection @relation(fields: [dbId],references: [id],onDelete: Cascade)
+  @@unique([dbId, name], name: "dbId_name_uninque")
 }
 
 model Row {

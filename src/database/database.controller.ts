@@ -17,4 +17,8 @@ export class DatabaseController {
   generateERD(@Body() selectedDB: SelectedDBDto, @CurrentUser() user: User) {
     return this.databaseService.generateERD(selectedDB, user);
   }
+  @Post('reset-erd')
+  resetERD(@Body() selectedDB: SelectedDBDto, @CurrentUser() user: User) {
+    return this.databaseService.resetDatabase(selectedDB, user);
+  }
 }

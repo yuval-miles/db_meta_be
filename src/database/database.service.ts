@@ -59,9 +59,22 @@ export class DatabaseService {
       dbConnectionInfo,
     );
     const erd = await this.erdGeneratorService.generateErd(databaseInfo);
-    //this.thumbnailGeneratorService.genThumbnail(erd, selectedDB, user);
+    this.thumbnailGeneratorService.genThumbnail(erd, selectedDB, user);
     await this.saveERD(erd, selectedDB);
     return erd;
+  }
+  async resetDatabase(selectedDB: SelectedDBDto, user: User) {
+    await this.prismaService.table.deleteMany({
+      where: {
+        dbId: selectedDB.id,
+      },
+    });
+    await this.prismaService.edge.deleteMany({
+      where: {
+        dbId: selectedDB.id,
+      },
+    });
+    return this.generateERD(selectedDB, user);
   }
   async saveERD(erd: ERD, selectedDB: SelectedDBDto) {
     const tableIds: { [key: string]: string } = {};

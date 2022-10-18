@@ -4,10 +4,10 @@ import { DatabaseService } from './database.service';
 import { DatabaseController } from './database.controller';
 import { ErdGeneratorModule } from '../erd-generator/erd-generator.module';
 import { ThumbnailGeneratorModule } from '../thumbnail-generator/thumbnail-generator.module';
-import { DatabaseGatewayGateway } from './database-gateway.gateway';
+import { DatabaseGateway } from './database.gateway';
 
 @Module({
-  providers: [DatabaseService, DatabaseRepository, DatabaseGatewayGateway],
+  providers: [DatabaseService, DatabaseRepository, DatabaseGateway],
   exports: [DatabaseService],
   controllers: [DatabaseController],
   imports: [ErdGeneratorModule, ThumbnailGeneratorModule],

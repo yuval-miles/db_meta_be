@@ -1,5 +1,17 @@
 import * as mysql2 from 'mysql2/promise';
 
+export interface TablesUpdateInfo {
+  [key: string]: {
+    x: number;
+    y: number;
+    dbId: string;
+  };
+}
+
+export interface UpdateSessions {
+  [key: string]: TablesUpdateInfo;
+}
+
 export interface Row {
   columnName: string;
   dataType: string;

@@ -37,7 +37,7 @@ export class ErdGeneratorService {
         });
     }
   }
-  private async createLayout(erdInfo: ERD) {
+  async createLayout(erdInfo: ERD) {
     const children: { id: string; width: number; height: number }[] = [];
     for (const table in erdInfo.tables) {
       children.push({

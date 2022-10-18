@@ -9,7 +9,7 @@ export class UpdatePositionDto {
   @Transform(({ value }) => parseFloat(value))
   y: number;
   @IsString()
-  tableId: string;
+  tableName: string;
   @IsString()
-  userId: string;
+  dbId: string;
 }
