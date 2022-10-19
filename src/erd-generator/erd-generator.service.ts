@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { Relation, Rows } from 'src/database/interfaces';
+import { Relation, Columns } from 'src/database/interfaces';
 import ELK from 'elkjs';
 import { ERD } from './interfaces';
 const elk = new ELK();
 
 @Injectable()
 export class ErdGeneratorService {
-  async generateErd(columns: Rows): Promise<ERD> {
-    const ERDinfo: ERD = { tables: {}, edges: [], layout: null };
-    this.formatTable(ERDinfo, columns);
+  async generateErd(columns: Columns): Promise<ERD> {
+    const ERDinfo = this.formatTable(columns);
     ERDinfo.layout = await this.createLayout(ERDinfo);
     return ERDinfo;
   }
-  private formatTable(ERDinfo: ERD, columns: Rows) {
+  formatTable(columns: Columns) {
+    const ERDinfo: ERD = { tables: {}, edges: [], layout: null };
     for (const el of JSON.parse(JSON.stringify(columns[0]))) {
       if (el.FK) ERDinfo.edges.push(this.createEdge(el));
       if (!ERDinfo.tables[el.TABLE_NAME])
@@ -36,6 +36,7 @@ export class ErdGeneratorService {
           isForeignKey: el.FK === 'FK' ? 1 : 0,
         });
     }
+    return ERDinfo;
   }
   async createLayout(erdInfo: ERD) {
     const children: { id: string; width: number; height: number }[] = [];

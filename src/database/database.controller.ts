@@ -21,4 +21,8 @@ export class DatabaseController {
   resetERD(@Body() selectedDB: SelectedDBDto, @CurrentUser() user: User) {
     return this.databaseService.resetDatabase(selectedDB, user);
   }
+  @Post('compare-erd')
+  compareERD(@Body() selectedDB: SelectedDBDto, @CurrentUser() user: User) {
+    return this.databaseService.compareERD(selectedDB, user);
+  }
 }

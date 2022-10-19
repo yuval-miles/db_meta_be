@@ -25,6 +25,7 @@ model DBConnection {
   database String
   port Int
   userId String
+  jsonSchema Json?
   tables Table[]
   edges Edge[]
 

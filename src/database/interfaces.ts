@@ -12,7 +12,7 @@ export interface UpdateSessions {
   [key: string]: TablesUpdateInfo;
 }
 
-export interface Row {
+export interface Column {
   columnName: string;
   dataType: string;
   isNullable: string;
@@ -21,7 +21,7 @@ export interface Row {
   isForeignKey: number;
 }
 
-export type Rows = [
+export type Columns = [
   (
     | mysql2.RowDataPacket[]
     | mysql2.RowDataPacket[][]
@@ -39,7 +39,15 @@ export interface Relation {
   TABLE_NAME: string;
 }
 
-export interface ERDinfo {
-  tables: { [key: string]: Row[] };
-  relations: Relation[];
+export interface SavedEdge {
+  id: string;
+  source: string;
+  sourceHandle: string;
+  targetHandle: string;
+  target: string;
+}
+
+export interface SavedERD {
+  tables: { [key: string]: Column[] };
+  edges: SavedEdge[];
 }

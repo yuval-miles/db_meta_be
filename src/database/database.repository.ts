@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import * as mysql2 from 'mysql2/promise';
 import { AddDatabaseDto } from 'src/user/dtos/AddDatabaseDto';
 import { DBConnection } from '@prisma/client';
-import { Rows } from './interfaces';
+import { Columns } from './interfaces';
 
 @Injectable()
 export class DatabaseRepository {
@@ -22,7 +22,7 @@ export class DatabaseRepository {
     const connection = await this.createConnection(connectionInfo);
     await connection.end();
   }
-  async getDatabaseInfo(connectionInfo: DBConnection): Promise<Rows> {
+  async getDatabaseInfo(connectionInfo: DBConnection): Promise<Columns> {
     const connection = await this.createConnection(connectionInfo);
     const columns = await connection.query(`
     SELECT  c.TABLE_NAME,

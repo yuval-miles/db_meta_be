@@ -1,5 +1,5 @@
 import { ElkNode } from 'elkjs';
-import { Row } from 'src/database/interfaces';
+import { Column } from 'src/database/interfaces';
 
 export interface Edge {
   id: string;
@@ -12,7 +12,7 @@ export interface Edge {
 }
 
 export interface ERD {
-  tables: { [key: string]: Row[] };
+  tables: { [key: string]: Column[] };
   layout: ElkNode[];
   edges: Edge[];
 }
