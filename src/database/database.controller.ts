@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
 import { CurrentUser } from 'src/user/decorators/current-user.decorator';
@@ -21,8 +21,8 @@ export class DatabaseController {
   resetERD(@Body() selectedDB: SelectedDBDto, @CurrentUser() user: User) {
     return this.databaseService.resetDatabase(selectedDB, user);
   }
-  @Post('compare-erd')
-  compareERD(@Body() selectedDB: SelectedDBDto, @CurrentUser() user: User) {
+  @Get('compare-erd/:dbId')
+  compareERD(@Param('dbId') selectedDB: string, @CurrentUser() user: User) {
     return this.databaseService.compareERD(selectedDB, user);
   }
 }

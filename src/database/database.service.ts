@@ -72,7 +72,7 @@ export class DatabaseService {
       },
     });
     const erd = await this.erdGeneratorService.generateErd(databaseInfo);
-    this.thumbnailGeneratorService.genThumbnail(erd, selectedDB, user);
+    this.thumbnailGeneratorService.genThumbnail(erd, selectedDB.id, user.id);
     await this.saveERD(erd, selectedDB);
     return erd;
   }
@@ -89,10 +89,10 @@ export class DatabaseService {
     });
     return this.generateERD(selectedDB, user);
   }
-  async compareERD(selectedDB: SelectedDBDto, user: User) {
+  async compareERD(selectedDB: string, user: User) {
     const dbConnectionInfo = await this.prismaService.dBConnection.findUnique({
       where: {
-        id: selectedDB.id,
+        id: selectedDB,
       },
       include: {
         tables: {

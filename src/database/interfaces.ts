@@ -4,7 +4,6 @@ export interface TablesUpdateInfo {
   [key: string]: {
     x: number;
     y: number;
-    dbId: string;
   };
 }
 

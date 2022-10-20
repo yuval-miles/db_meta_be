@@ -2,9 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectS3, S3 } from 'nestjs-s3';
 import puppeteer from 'puppeteer';
-import { SelectedDBDto } from '../database/dtos/SelectedDBDto';
-import { ERD } from '../erd-generator/interfaces';
-import { User } from '../user/decorators/current-user.decorator';
 
 @Injectable()
 export class ThumbnailGeneratorService {
@@ -12,7 +9,7 @@ export class ThumbnailGeneratorService {
     @InjectS3() private readonly s3: S3,
     private config: ConfigService,
   ) {}
-  async genThumbnail(ERDinfo: ERD, selectedDB: SelectedDBDto, user: User) {
+  async genThumbnail(ERDinfo: object, dbId: string, userId: string) {
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
     await page.goto('http://127.0.0.1:5175');
@@ -22,7 +19,7 @@ export class ThumbnailGeneratorService {
     await page.click('.submit');
     const ERD = await page.$('.react-flow');
     const thumbnail = await ERD.screenshot();
-    console.log(await this.uploadThumbnail(thumbnail, user.id, selectedDB.id));
+    console.log(await this.uploadThumbnail(thumbnail, userId, dbId));
     await browser.close();
   }
   private async uploadThumbnail(
